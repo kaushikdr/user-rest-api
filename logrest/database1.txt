@@ -1,0 +1,75 @@
+
+
+CREATE TABLE Users
+(
+Id int,
+Reputation varchar(255),
+CreationDate date,
+DisplayName varchar(255),
+LastAccessDate date,
+WebsiteUrl varchar(255),
+Location varchar(255),
+AboutMe varchar(255),
+Views int,
+UpVotes int,
+Downvotes int,
+PRIMARY KEY (Id)
+);
+
+CREATE TABLE Badges
+(
+UserId int,
+Name varchar(255),
+Date date,
+PRIMARY KEY (UserId)
+);
+
+CREATE TABLE Posts
+(
+Id int,
+PostTypeId int,
+CreationDate date,
+Score int,
+ViewCount int,
+Body varchar(255),
+OwnerUserId int,
+OwnerDisplayName varchar(255),
+LastEditorUserId int,
+LastEditDate date,
+LastActivityDate date,
+Title varchar(255),
+Tags int,
+AnswerCount int,
+CommentCount int,
+FavoriteCount int,
+ClosedDate date,
+PRIMARY KEY (PostTypeId),
+FOREIGN KEY (Id) REFERENCES Users(Id)
+);
+
+CREATE TABLE Comments
+(
+Id int,
+PostId int,
+Text varchar(255),
+Rating int,
+CreationDate date,
+UserId int,
+UserDisplayName varchar(255),
+FOREIGN KEY (Id) REFERENCES Users(Id),
+FOREIGN KEY (PostId) REFERENCES Posts(PostId),
+FOREIGN KEY (UserId) REFERENCES Badges(UserId)
+);
+
+CREATE TABLE Votes
+(
+Id int,
+PostId int,
+VoteTypeId int,
+CreationDate date,
+UserId int,
+PRIMARY KEY (VoteTypeId),
+FOREIGN KEY (Id) REFERENCES Users(Id),
+FOREIGN KEY (PostId) REFERENCES Posts(PostId),
+FOREIGN KEY (UserId) REFERENCES Badges(UserId)
+);
